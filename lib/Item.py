@@ -24,67 +24,131 @@ class Item:
 	checkPenalty = 0
 	spellFailure = 0
 
+	def __init__(self, record = None):
+		if (record != None):
+			self.name = record["name"]
+			self.cost = record["cost"]
+			self.weight = record["weight"]
+			self.isMagical = record["isMagical"]
+			self.shortDesc = record["shortDesc"]
+			self.longDesc = record["longDesc"]
+			self.itemType = record["itemType"]
+			self.itemType = record["weaponClass"]
+			self.itemType = record["weaponType"]
+			self.itemType = record["wieldType"]
+			self.itemType = record["damageS"]
+			self.itemType = record["damageM"]
+			self.itemType = record["damageType"]
+			self.itemType = record["critMult"]
+			self.itemType = record["critMin"]
+			self.itemType = record["special"]
+			self.itemType = record["armorType"]
+			self.itemType = record["acBonus"]
+			self.itemType = record["maxDex"]
+			self.itemType = record["checkPenalty"]
+			self.itemType = record["spellFailure"]
+		else:
+			return
+		return
+
+itemTypes = ['gear', 'stable', 'clothes', 'boat', 'weapons', 'armor', 'simpleWeapons', 'martialWeapons', 'exoticWeapons']
+
 def getItem(self, name):
 	with open('items.csv', mode = 'r') as items:
 		itemsFile = csv.DictReader(items)
 		for record in itemsFile:
 			if (name.lower() == record["name"].lower()):
-				self.name = record["name"]
-				self.cost = float(record["cost"])
-				self.weight = float(record["weight"])
-				self.isMagical = record["isMagical"]
-				self.shortDesc = record["shortDesc"]
-				self.longDesc = record["longDesc"]
-				self.itemType = record["itemType"]
-				self.itemType = record["weaponClass"]
-				self.itemType = record["weaponType"]
-				self.itemType = record["wieldType"]
-				self.itemType = record["damageS"]
-				self.itemType = record["damageM"]
-				self.itemType = record["damageType"]
-				self.itemType = record["critMult"]
-				self.itemType = record["critMin"]
-				self.itemType = record["special"]
-				self.itemType = record["armorType"]
-				self.itemType = int(record["acBonus"])
-				self.itemType = int(record["maxDex"])
-				self.itemType = int(record["checkPenalty"])
-				self.itemType = float(record["spellFailure"])
+				tempItem = Item(record)
 				break
-	return
+	return tempItem
 
-def randomItem(self, minValue, maxValue):
+def randomItem(minValue, maxValue):
 	with open('items.csv', mode = 'r') as items:
 		itemsFile = csv.DictReader(items)
 		tempList = []
 		for record in itemsFile:
 			if (minValue <= float(record["cost"]) <= maxValue):
-				tempItem = Item()
-				tempItem.name = record["name"]
-				tempItem.cost = record["cost"]
-				tempItem.weight = record["weight"]
-				tempItem.isMagical = record["isMagical"]
-				tempItem.shortDesc = record["shortDesc"]
-				tempItem.longDesc = record["longDesc"]
-				tempItem.itemType = record["itemType"]
-				tempItem.itemType = record["weaponClass"]
-				tempItem.itemType = record["weaponType"]
-				tempItem.itemType = record["wieldType"]
-				tempItem.itemType = record["damageS"]
-				tempItem.itemType = record["damageM"]
-				tempItem.itemType = record["damageType"]
-				tempItem.itemType = record["critMult"]
-				tempItem.itemType = record["critMin"]
-				tempItem.itemType = record["special"]
-				tempItem.itemType = record["armorType"]
-				tempItem.itemType = record["acBonus"]
-				tempItem.itemType = record["maxDex"]
-				tempItem.itemType = record["checkPenalty"]
-				tempItem.itemType = record["spellFailure"]
+				tempItem = Item(record)
 				tempList.append(tempItem)
 
-		randItem = random.choice(tempList)	
-	return
+	return random.choice(tempList)	
+
+def getItemsOfType(itemType):
+	returnList = []
+	if (itemType not in itemTypes):
+		return
+	if (itemType == 'gear'):
+		with open('items.csv', mode = 'r') as items:
+			itemsFile = csv.DictReader(items)
+			for record in itemsFile:
+				if (record["itemType"] == itemType):
+					tempItem = Item(record)
+					returnList.append(tempItem)
+		return returnList
+	elif (itemType == 'stable'):
+		with open('items.csv', mode = 'r') as items:
+			itemsFile = csv.DictReader(items)
+			for record in itemsFile:
+				if (record["itemType"] == itemType):
+					tempItem = Item(record)
+					returnList.append(tempItem)
+		return returnList
+	elif (itemType == 'clothes'):
+		with open('items.csv', mode = 'r') as items:
+			itemsFile = csv.DictReader(items)
+			for record in itemsFile:
+				if (record["itemType"] == itemType):
+					tempItem = Item(record)
+					returnList.append(tempItem)
+		return returnList
+	elif (itemType == 'boat'):
+		with open('items.csv', mode = 'r') as items:
+			itemsFile = csv.DictReader(items)
+			for record in itemsFile:
+				if (record["itemType"] == itemType):
+					tempItem = Item(record)
+					returnList.append(tempItem)
+		return returnList
+	elif (itemType == 'weapons'):
+		with open('weapons.csv', mode = 'r') as items:
+			itemsFile = csv.DictReader(items)
+			for record in itemsFile:
+				if (record["itemType"] == itemType):
+					tempItem = Item(record)
+					returnList.append(tempItem)
+		return returnList
+	elif (itemType == 'armor'):
+		with open('armor.csv', mode = 'r') as items:
+			itemsFile = csv.DictReader(items)
+			for record in itemsFile:
+				if (record["itemType"] == itemType):
+					tempItem = Item(record)
+					returnList.append(tempItem)
+		return returnList
+	elif (itemType == 'simpleWeapons'):
+		with open('weapons.csv', mode = 'r') as items:
+			itemsFile = csv.DictReader(items)
+			for record in itemsFile:
+				if ((record["itemType"] == "weapons") and (record["weaponClass"] == 'simple')):
+					tempItem = Item(record)
+					returnList.append(tempItem)
+		return returnList
+	elif (itemType == 'martialWeapons'):
+		with open('weapons.csv', mode = 'r') as items:
+			itemsFile = csv.DictReader(items)
+			for record in itemsFile:
+				if ((record["itemType"] == "weapons") and (record["weaponClass"] == 'martial')):
+					tempItem = Item(record)
+					returnList.append(tempItem)
+		return returnList
+	elif (itemType == 'exoticWeapons'):
+		with open('weapons.csv', mode = 'r') as items:
+			itemsFile = csv.DictReader(items)
+			for record in itemsFile:
+				if ((record["itemType"] == "weapons") and (record["weaponClass"] == 'exotic')):
+					tempItem = Item(record)
+					returnList.append(tempItem)
+		return returnList
 
 def getAllItems(include = None):
 	returnList = []
@@ -92,82 +156,19 @@ def getAllItems(include = None):
 		with open('items.csv', mode = 'r') as items:
 			itemsFile = csv.DictReader(items)
 			for record in itemsFile:
-				tempItem = Item()
-				tempItem.name = record["name"]
-				tempItem.cost = record["cost"]
-				tempItem.weight = record["weight"]
-				tempItem.isMagical = record["isMagical"]
-				tempItem.shortDesc = record["shortDesc"]
-				tempItem.longDesc = record["longDesc"]
-				tempItem.itemType = record["itemType"]
-				tempItem.itemType = record["weaponClass"]
-				tempItem.itemType = record["weaponType"]
-				tempItem.itemType = record["wieldType"]
-				tempItem.itemType = record["damageS"]
-				tempItem.itemType = record["damageM"]
-				tempItem.itemType = record["damageType"]
-				tempItem.itemType = record["critMult"]
-				tempItem.itemType = record["critMin"]
-				tempItem.itemType = record["special"]
-				tempItem.itemType = record["armorType"]
-				tempItem.itemType = record["acBonus"]
-				tempItem.itemType = record["maxDex"]
-				tempItem.itemType = record["checkPenalty"]
-				tempItem.itemType = record["spellFailure"]
+				tempItem = Item(record)
 				returnList.append(tempItem)
 	if ((include == None) or ('weapon' in include)):
 		with open('weapons.csv', mode = 'r') as items:
 			itemsFile = csv.DictReader(items)
 			for record in itemsFile:
-				tempItem = Item()
-				tempItem.name = record["name"]
-				tempItem.cost = record["cost"]
-				tempItem.weight = record["weight"]
-				tempItem.isMagical = record["isMagical"]
-				tempItem.shortDesc = record["shortDesc"]
-				tempItem.longDesc = record["longDesc"]
-				tempItem.itemType = record["itemType"]
-				tempItem.itemType = record["weaponClass"]
-				tempItem.itemType = record["weaponType"]
-				tempItem.itemType = record["wieldType"]
-				tempItem.itemType = record["damageS"]
-				tempItem.itemType = record["damageM"]
-				tempItem.itemType = record["damageType"]
-				tempItem.itemType = record["critMult"]
-				tempItem.itemType = record["critMin"]
-				tempItem.itemType = record["special"]
-				tempItem.itemType = record["armorType"]
-				tempItem.itemType = record["acBonus"]
-				tempItem.itemType = record["maxDex"]
-				tempItem.itemType = record["checkPenalty"]
-				tempItem.itemType = record["spellFailure"]
+				tempItem = Item(record)
 				returnList.append(tempItem)
 	if ((include == None) or ('armor' in include)):
 		with open('armor.csv', mode = 'r') as items:
 			itemsFile = csv.DictReader(items)
 			for record in itemsFile:
-				tempItem = Item()
-				tempItem.name = record["name"]
-				tempItem.cost = record["cost"]
-				tempItem.weight = record["weight"]
-				tempItem.isMagical = record["isMagical"]
-				tempItem.shortDesc = record["shortDesc"]
-				tempItem.longDesc = record["longDesc"]
-				tempItem.itemType = record["itemType"]
-				tempItem.itemType = record["weaponClass"]
-				tempItem.itemType = record["weaponType"]
-				tempItem.itemType = record["wieldType"]
-				tempItem.itemType = record["damageS"]
-				tempItem.itemType = record["damageM"]
-				tempItem.itemType = record["damageType"]
-				tempItem.itemType = record["critMult"]
-				tempItem.itemType = record["critMin"]
-				tempItem.itemType = record["special"]
-				tempItem.itemType = record["armorType"]
-				tempItem.itemType = record["acBonus"]
-				tempItem.itemType = record["maxDex"]
-				tempItem.itemType = record["checkPenalty"]
-				tempItem.itemType = record["spellFailure"]
+				tempItem = Item(record)
 				returnList.append(tempItem)
 	return returnList
 
@@ -201,4 +202,3 @@ def addItem(name, cost, weight, isMagical, shortDesc, longDesc, itemType, weapon
 				'critMult': critMult, 'critMin': critMin, 'special': special, 'armorType': armorType, 'acBonus': acBonus, 'maxDex': maxDex, 'checkPenalty': checkPenalty, \
 				'spellFailure': spellFailure})
 	return
-	
