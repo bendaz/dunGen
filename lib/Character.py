@@ -2,6 +2,7 @@
 # import Armor
 import CharacterDef
 import Dice
+import math
 
 class Character:
 	# General info
@@ -9,10 +10,10 @@ class Character:
 	name = None
 	alignment = None
 	characterClass = None
-	level = 0
+	level = 1
 	diety = None
 	homeland = None
-	race = None
+	race = Race()
 	size = None
 	gender = None
 	age = None
@@ -32,6 +33,7 @@ class Character:
 	backstory = None
 	occupation = None
 	# Attributes
+	attributeScores = []
 	strength = {"score": 0,
 				"mod": 0,
 				"tempScore": 0,
@@ -153,33 +155,44 @@ class Character:
 	xp = 0
 
 	# Member functions
-	def setRace(self, inRace = None):
+	def __init__():
+
+	def setCharacterRace(self, inRace = None):
 		if(self.race == None):
 			if(inRace != None):
 				self.race = inRace
+				self.race.setRaceDetails()
 			else:
-				self.race = randomRace()
-	
-	def randomRace():
-		roll = Dice.dx(100)
-		if(roll <= 90):
-			# TODO: move random race to race class
-			return random.choice(CharacterDef.commonRaces)
-		else:
-			return random.choice(CharacterDef.rareRaces)
+				self.race.setRandomCommonRace()
+		return
 
-	def setSize(self):
-		self.size = self.race.size
+	def setName(self, inName = None):
+		if (inName == None):
+			self.name = self.setRandomName()
+		else:
+			self.name = inName
+		return
+
+	def setRandomName(self):
+		self.name = random.choose(self.race.nameList)
+
+	def setSize(self, inSize = None):
+		if (inSize == None):
+			self.size = self.race.size
+		else:
+			self.size = inSize
+		return
 
 	def setAge(self, inAge = None):
-		if(inAge != None):
-			self.age = inAge
+		if(inAge == None):
+			self.setRandomAge()
 		else:
-			self.age = randomAge(self)
+			self.age = inAge
+		return
 			
-	def randomAge(self):
-		ageRange = self.race.ageRange
-		return randint(ageRange[0], ageRange[1])
+	def setRandomAge(self):
+		self.age = Dice.gaussian(self.race.ageRange[0].self.race.ageRange[1])
+		return
 
 	def setHeight(self, inFeet = None, inInches = None):
 		if(inInches != None or inFeet != None):
@@ -197,48 +210,124 @@ class Character:
 		else:
 			self.heightFt = inFeet
 			self.heightIn = inInches
+		return
 
 	def setWeight(self, inWeight = None):
-		if(inWeight != None):
-			self.weight = inWeight
+		if(inWeight == None):
+			self.randomWeight()
 		else:
-			self.randomWeight(self)
+			self.weight = inWeight
+		return
 
-	def randomWeight(self):
-		weightRange = self.weight.weightRange
-		return randint(weightRange[0],weightRange[1])
+	def setRandomWeight(self):
+		self.weight = Dice.gaussian(self.race.weightRange[0], self.race.weightRange[1])
+		return
 
 	def setHair(self, inHair = None):
 		if(inHair != None):
 			self.hair = inHair
 		else:
-			self.hair = randomHair(self)
+			self.hair = self.setRandomHair()
+		return
 
-	def randomHair(self):
-		return random.choice(self.race.hair)
+	def setRandomHair(self):
+		self.hair = random.choice(self.race.hair)
+		return
 
 	def setEyes(self, inEyes):
 		if(inEyes != None):
 			self.eyes = inEyes
 		else:
-			self.eyes = randomEyes(self)
+			self.eyes = self.setRandomEyes()
+		return
 
-	def randomEyes(self):
-		return random.choice(self.race.eyes)
+	def setRandomEyes(self):
+		self.eyes = random.choice(self.race.eyes)
+		return
 
 	def setSpeed(self):
-		self.speed = self.race.speed
+		self.speed["base"] = self.race.speed
+		return
 
 	def setGender(self, inGender):
 		if(inGender != None):
 			self.gender = inGender
 		else:
-			self.gender = random.choice(["M", "F"])
+			self.gender = setRandomGender()
+		return
 
-commonRaces = [dwarf, elf, gnome, halfElf, halfOrc, halfling, human]
-rareRaces = [antipaladin]
-goblinoidRaces = [goblin, orc, hobgoblin]
+	def setRandomGender(self):
+		self.gender = random.choice(["M", "F"])
+		return
 
-commonClasses = [Barbarian, Bard, Cleric, Druid, Fighter, Monk, Paladin, Ranger, Rogue, Sorcerer, Wizard]
-advancedClasses = [Alchemist, Cavalier, Inquisitor, Oracle, Summoner, Witch]
+	def setCharacterClass(self, inClass):
+		if (inClass == None):
+			self.setRandomClass()
+		else:
+			self.characterClass = inClass
+		return
 
+	def setRandomClass(self):
+		self.characterClass = random.choice(self.race.classList)
+		return
+
+	def setAlignment(self, inAlignment):
+		if (inAlignment == None):
+			self.setRandomAlignment()
+		else:
+			self.alignment = inAlignment
+		return
+
+	def setRandomAlignment(self):
+		self.alignment = random.choose(self.characterClass.alignmentList)
+		return
+
+	def setRandomAttributeScores(self):
+		self.attributeScores = Dice.rollStatSet()
+		return
+
+	def allocateAttributeScores(self):
+		tempAtts = self.attributeScores
+		for score in range(1,7):
+			if (self.characterClass.statAlloOrder[score] = "str"):
+				self.strength["score"] = max(tempAtts)
+			else if (self.characterClass.statAlloOrder[score] = "dex"):
+				self.dexterity["score"] = max(tempAtts)
+			else if (self.characterClass.statAlloOrder[score] = "con"):
+				self.constitution["score"] = max(tempAtts)
+			else if (self.characterClass.statAlloOrder[score] = "int"):
+				self.intelligence["score"] = max(tempAtts)
+			else if (self.characterClass.statAlloOrder[score] = "wis"):
+				self.wisdom["score"] = max(tempAtts)
+			else:
+				self.charisma["score"] = max(tempAtts)
+			tempAtts.remove(max(tempAtts))
+		return
+
+	def setAttributeMods(self):
+		self.strength["mod"] = calculateAttributeMod(self.strength["score"])
+		self.dexterity["mod"] = calculateAttributeMod(self.dexterity["score"])
+		self.constitution["mod"] = calculateAttributeMod(self.constitution["score"])
+		self.intelligence["mod"] = calculateAttributeMod(self.intelligence["score"])
+		self.wisdom["mod"] = calculateAttributeMod(self.wisdom["score"])
+		self.charisma["mod"] = calculateAttributeMod(self.charisma["score"])
+
+	def setLevel(self, inlevel = None):
+		if (inLevel == None):
+			self.level = 1
+		else:
+			self.level = inLevel
+
+	def setMaxHP(self, inHP = None):
+		if (inHP == None):
+			self.hp["max"] = self.characterClass.hitDie + self.constitution["mod"]			else:
+			for i in range(1, level):
+				roll = Dice.dx(self.characterClass.hitDie)
+				if (roll > ((self.characterClass.hitDie / 2) + 1))
+					roll = (self.characterClass.hitDie / 2) + 1
+				self.hp["max"] = roll + self.constitution["mod"]
+		else:
+			self.hp["max"] = inHP
+
+def calculateAttributeMod(score):
+	return (math.floor(score / 2) - 5)

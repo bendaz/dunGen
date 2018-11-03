@@ -50,7 +50,8 @@ class Item:
 		else:
 			return
 		return
-
+		
+# When adding to this, add logic to getItemsOfType method
 itemTypes = ['gear', 'stable', 'clothes', 'boat', 'weapons', 'armor', 'simpleWeapons', 'martialWeapons', 'exoticWeapons']
 
 def getItem(self, name):

@@ -8,6 +8,7 @@ class Shop:
 	shopType = None
 	inventory = None
 
+	# TODO: randomize city, name, owner
 	def __init__(self, randomize, city = None, name = None, owner = None, shopType = None, inventory = None):
 		self.city = city
 		self.name = name
@@ -39,6 +40,12 @@ class Shop:
 					self.inventory = Item.getItemsOfType('boat')
 				else:
 					self.inventory = getAllItems()
-		return
+	return
+
+	#Takes a list of itemTypes to be included in the inventory
+	def buildInventory(itemTypes):
+		for itemType in itemTypes:
+			self.inventory.extend(Item.getItemsOfType(itemType))
 
 shopTypes = ['general', 'blacksmith', 'stable', 'armorer', 'weaponsmith', 'dock']
+
