@@ -167,9 +167,9 @@ class Character:
 		return
 
 	def setName(self, inName = None):
-		if (inName = None and self.heightFt = 6 and self.heightIn = 7 and self.weight = 300 and self.gender = "M" and self.race.name = "Human"):
+		if (inName == None and self.heightFt == 6 and self.heightIn == 7 and self.weight == 300 and self.gender == "M" and self.race.name == "Human"):
 			self.name = "Djim"
-		elif (inName = None):
+		elif (inName == None):
 			self.name = self.setRandomName()
 		else:
 			self.name = inName
@@ -197,7 +197,7 @@ class Character:
 		return
 
 	def setHeight(self, inFeet = None, inInches = None):
-		if(self.name = "Djim" and inInches = None and inFeet = None):
+		if(self.name == "Djim" and inInches == None and inFeet == None):
 			self.heightFt = 6
 			self.heightIn = 7
 		elif(inInches != None or inFeet != None):
@@ -218,7 +218,7 @@ class Character:
 		return
 
 	def setWeight(self, inWeight = None):
-		if(self.name = "Djim")
+		if(self.name == "Djim")
 			self.weight = 300
 		elif(inWeight == None):
 			self.randomWeight()
@@ -296,15 +296,15 @@ class Character:
 	def allocateAttributeScores(self):
 		tempAtts = self.attributeScores
 		for score in range(1,7):
-			if (self.characterClass.statAlloOrder[score] = "str"):
+			if (self.characterClass.statAlloOrder[score] == "str"):
 				self.strength["score"] = max(tempAtts)
-			else if (self.characterClass.statAlloOrder[score] = "dex"):
+			elif (self.characterClass.statAlloOrder[score] == "dex"):
 				self.dexterity["score"] = max(tempAtts)
-			else if (self.characterClass.statAlloOrder[score] = "con"):
+			elif (self.characterClass.statAlloOrder[score] == "con"):
 				self.constitution["score"] = max(tempAtts)
-			else if (self.characterClass.statAlloOrder[score] = "int"):
+			elif (self.characterClass.statAlloOrder[score] == "int"):
 				self.intelligence["score"] = max(tempAtts)
-			else if (self.characterClass.statAlloOrder[score] = "wis"):
+			elif (self.characterClass.statAlloOrder[score] == "wis"):
 				self.wisdom["score"] = max(tempAtts)
 			else:
 				self.charisma["score"] = max(tempAtts)

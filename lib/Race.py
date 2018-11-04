@@ -47,14 +47,24 @@ class Race:
 				break
 		return
 
-commonRaces = ["Dwarf", "Elf", "Gnome", "Half elf", "Half orc", "Halfling", "Human"]
-rareRaces = []
-goblinoidRaces = ["Goblin", "Orc", "Hobgoblin"]
+def getRacesLists():
+	commonRaces = []
+	rareRaces = []
+	goblinoidRaces = []
+	with open('races.csv', mode = 'r') as races:
+	racesFile = csv.DictReader(races)
+	for record in racesFile:
+		if (record["classification"] == common):
+			commonRaces.append(record["name"])
+		elif (record["classification"] == rare):
+			rareRaces.append(record["name"])
+		elif (record["classification"] == goblinoid):
+			goblinoidRaces.append(record["name"])
 
 def randomRace():
+	getRacesLists()
 	roll = Dice.dx(100)
 	if(roll <= 90):
-		# TODO: move random race to race class
 		return random.choice(commonRaces)
 	else:
 		return random.choice(rareRaces)

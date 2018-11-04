@@ -28,6 +28,7 @@ class Shop:
 			if (inventory == None):
 				if (shopType == 'general'):
 					self.inventory = Item.getItemsOfType('gear')
+					self.inventory.extend(Item.getItemsOfType('mundane'))
 				elif (shopType == 'blacksmith'):
 					self.inventory = Item.getItemsOfType('weapons') + Item.getItemsOfType('armor')
 				elif (shopType == 'stable'):
@@ -38,8 +39,6 @@ class Shop:
 					self.inventory = Item.getItemsOfType('weapons')
 				elif (shopType == 'dock'):
 					self.inventory = Item.getItemsOfType('boat')
-				elif (shopType == 'mundane'):
-					self.inventory = Item.getItemsOfType('mundane')
 				else:
 					self.inventory = getAllItems()
 	return
@@ -50,4 +49,4 @@ class Shop:
 			self.inventory.extend(Item.getItemsOfType(itemType))
 
 #If you add here, add to __init__
-shopTypes = ['general', 'mundane', 'blacksmith', 'stable', 'armorer', 'weaponsmith', 'dock']
+shopTypes = ['general', 'blacksmith', 'stable', 'armorer', 'weaponsmith', 'dock']

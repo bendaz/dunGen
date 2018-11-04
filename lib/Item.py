@@ -52,7 +52,7 @@ class Item:
 		return
 		
 # When adding to this, add logic to getItemsOfType method
-itemTypes = ['gear', 'stable', 'clothes', 'boat', 'weapons', 'armor', 'simpleWeapons', 'martialWeapons', 'exoticWeapons']
+itemTypes = ['gear', 'mundane', 'stable', 'clothes', 'boat', 'weapons', 'armor', 'simpleWeapons', 'martialWeapons', 'exoticWeapons']
 
 def getItem(self, name):
 	with open('items.csv', mode = 'r') as items:
@@ -79,6 +79,14 @@ def getItemsOfType(itemType):
 	if (itemType not in itemTypes):
 		return
 	if (itemType == 'gear'):
+		with open('items.csv', mode = 'r') as items:
+			itemsFile = csv.DictReader(items)
+			for record in itemsFile:
+				if (record["itemType"] == itemType):
+					tempItem = Item(record)
+					returnList.append(tempItem)
+		return returnList
+	elif (itemType == 'mundane'):
 		with open('items.csv', mode = 'r') as items:
 			itemsFile = csv.DictReader(items)
 			for record in itemsFile:
@@ -203,3 +211,5 @@ def addItem(name, cost, weight, isMagical, shortDesc, longDesc, itemType, weapon
 				'critMult': critMult, 'critMin': critMin, 'special': special, 'armorType': armorType, 'acBonus': acBonus, 'maxDex': maxDex, 'checkPenalty': checkPenalty, \
 				'spellFailure': spellFailure})
 	return
+
+
