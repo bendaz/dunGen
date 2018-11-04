@@ -140,7 +140,7 @@ class Character:
 	armor4 = None
 	armor5 = None
 	# Gear
-	gear = {}
+	  = {}
 	carryWeight = 0
 	weightLimit = {"ltLoad": 0,
 					"medLoad": 0,
@@ -167,7 +167,9 @@ class Character:
 		return
 
 	def setName(self, inName = None):
-		if (inName == None):
+		if (inName = None and self.heightFt = 6 and self.heightIn = 7 and self.weight = 300 and self.gender = "M" and self.race.name = "Human"):
+			self.name = "Djim"
+		elif (inName = None):
 			self.name = self.setRandomName()
 		else:
 			self.name = inName
@@ -195,7 +197,10 @@ class Character:
 		return
 
 	def setHeight(self, inFeet = None, inInches = None):
-		if(inInches != None or inFeet != None):
+		if(self.name = "Djim" and inInches = None and inFeet = None):
+			self.heightFt = 6
+			self.heightIn = 7
+		elif(inInches != None or inFeet != None):
 			heightRange = self.race.heightRange
 			totalInches = randint(heightRange[0], heightRange[1])
 			if(inInches != None and inFeet != None):
@@ -213,7 +218,9 @@ class Character:
 		return
 
 	def setWeight(self, inWeight = None):
-		if(inWeight == None):
+		if(self.name = "Djim")
+			self.weight = 300
+		elif(inWeight == None):
 			self.randomWeight()
 		else:
 			self.weight = inWeight
@@ -320,7 +327,7 @@ class Character:
 
 	def setMaxHP(self, inHP = None):
 		if (inHP == None):
-			self.hp["max"] = self.characterClass.hitDie + self.constitution["mod"]			else:
+			self.hp["max"] = self.characterClass.hitDie + self.constitution["mod"]
 			for i in range(1, level):
 				roll = Dice.dx(self.characterClass.hitDie)
 				if (roll > ((self.characterClass.hitDie / 2) + 1))
