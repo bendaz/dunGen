@@ -23,6 +23,9 @@ class Item:
 	maxDex = None
 	checkPenalty = 0
 	spellFailure = 0
+	# When adding to this, add logic to getItemsOfType method
+	itemTypes = ['gear', 'mundane', 'stable', 'clothes', 'boat', 'weapons', 'armor', 'simpleWeapons', 'martialWeapons', 'exoticWeapons']
+	itemTypesXref = ['Gear', 'Mundane', 'Stable', 'Clothes', 'Boat', 'Weapons', 'Armor', 'Simple Weapons', 'Martial Weapons', 'Exotic Weapons']
 
 	def __init__(self, record = None):
 		if (record != None):
@@ -33,28 +36,26 @@ class Item:
 			self.shortDesc = record["shortDesc"]
 			self.longDesc = record["longDesc"]
 			self.itemType = record["itemType"]
-			self.itemType = record["weaponClass"]
-			self.itemType = record["weaponType"]
-			self.itemType = record["wieldType"]
-			self.itemType = record["damageS"]
-			self.itemType = record["damageM"]
-			self.itemType = record["damageType"]
-			self.itemType = record["critMult"]
-			self.itemType = record["critMin"]
-			self.itemType = record["special"]
-			self.itemType = record["armorType"]
-			self.itemType = record["acBonus"]
-			self.itemType = record["maxDex"]
-			self.itemType = record["checkPenalty"]
-			self.itemType = record["spellFailure"]
+			self.weaponClass = record["weaponClass"]
+			self.weaponType = record["weaponType"]
+			self.wieldType = record["wieldType"]
+			self.damageS = record["damageS"]
+			self.damageM = record["damageM"]
+			self.damageType = record["damageType"]
+			self.critMult = record["critMult"]
+			self.critMin = record["critMin"]
+			self.special = record["special"]
+			self.armorType = record["armorType"]
+			self.acBonus = record["acBonus"]
+			self.maxDex = record["maxDex"]
+			self.checkPenalty = record["checkPenalty"]
+			self.spellFailure = record["spellFailure"]
 		else:
 			return
 		return
 		
-# When adding to this, add logic to getItemsOfType method
-itemTypes = ['gear', 'mundane', 'stable', 'clothes', 'boat', 'weapons', 'armor', 'simpleWeapons', 'martialWeapons', 'exoticWeapons']
-
-def getItem(self, name):
+def getItem(name):
+	tempItem = Item()
 	with open('items.csv', mode = 'r') as items:
 		itemsFile = csv.DictReader(items)
 		for record in itemsFile:
@@ -63,6 +64,7 @@ def getItem(self, name):
 				break
 	return tempItem
 
+# Builds a work list of items in the price range and randomly chooses from the list
 def randomItem(minValue, maxValue):
 	with open('items.csv', mode = 'r') as items:
 		itemsFile = csv.DictReader(items)
@@ -74,9 +76,11 @@ def randomItem(minValue, maxValue):
 
 	return random.choice(tempList)	
 
+# Returns a list of given item type
 def getItemsOfType(itemType):
+	tempItem = Item()
 	returnList = []
-	if (itemType not in itemTypes):
+	if (itemType not in tempItem.itemTypes):
 		return
 	if (itemType == 'gear'):
 		with open('items.csv', mode = 'r') as items:
@@ -159,6 +163,7 @@ def getItemsOfType(itemType):
 					returnList.append(tempItem)
 		return returnList
 
+# Returns a list of all items in the file
 def getAllItems(include = None):
 	returnList = []
 	if ((include == None) or ('items' in include)):
