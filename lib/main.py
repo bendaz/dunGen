@@ -1,6 +1,9 @@
 from appJar import gui
 import Item
 import Character
+import CharacterClass
+import Common
+import Race
 
 def launch(id):
 	if (id == "itemsButton"):
@@ -45,9 +48,67 @@ app.addToolbar(mainMenuNames, launch, findIcon=True)
 #########################
 # Define character window
 #########################
-app.startSubWindow("Character", modal=True)
-app.setSize(800,400)
 
+# Set up the window
+app.startSubWindow("Character", modal=True)
+
+# Get info needed for character creation window
+(commonRaces,rareRaces,goblinoidRaces) = Race.getRacesLists()
+allRaceList = (commonRaces + rareRaces + goblinoidRaces)
+allRaceList.sort()
+
+allClassList = CharacterClass.commonClassesNames
+
+alignmentList = ["LG", "LN", "LE", "NG", "N", "NE", "CG", "CN", "CE"]
+
+# Display character creation fields
+# Row, Col, Colspan, Rowspan
+app.setPadding([15,5])
+
+app.setSticky("ew")	
+app.addEntry("nameField", 1, 1, 1, 2)
+app.setEntryDefault("nameField", "Name")
+
+app.addEntry("ageField", 1, 3, 2)
+app.setEntryDefault("ageField", "Age")
+
+app.addOptionBox("genderField", ["M","F"], 2, 3, 1)
+
+app.addOptionBox("alignmentField", alignmentList, 2, 4, 1)
+
+app.addLabel("sizeLabel", "Size", 3, 1, 2)
+app.addOptionBox("sizeField", (Common.sizeList), 4, 1, 2)
+
+app.addLabel("raceLabel", "Race", 3, 3, 2)
+app.addOptionBox("raceField", (allRaceList), 4, 3, 2)
+
+app.setSticky("w")
+app.addLabel("levelLabel", "Level", 5, 1, 2)
+app.addSpinBoxRange("levelField", 1, 20, 6, 1, 2)
+app.setSpinBoxWidth("levelField", 5)
+
+app.setSticky("ew")
+app.addLabel("classLabel", "Class", 5, 3, 2)
+app.addOptionBox("classField", allClassList, 6, 3, 2)
+
+app.setSticky("w")
+app.addLabel("heightLabel", "Height", 7, 1, 2)
+app.addSpinBoxRange("heightFtField", 0, 100, 8, 1, 1)
+app.setSpinBoxWidth("heightFtField", 5)
+app.addSpinBoxRange("heightInField", 0, 11, 8, 2, 1)
+app.setSpinBoxWidth("heightInField", 5)
+
+app.setSticky("ew")
+app.addEntry("hairField", 7, 3, 2)
+app.setEntryDefault("hairField", "Hair")
+
+app.addEntry("eyesField", 8, 3, 2)
+app.setEntryDefault("eyesField", "Eyes")
+
+app.addEntry("speedField", 9, 1, 2)
+app.setEntry("speedField", "Speed")
+
+app.stopSubWindow()
 
 #########################
 # Define items window

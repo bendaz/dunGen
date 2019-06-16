@@ -78,4 +78,6 @@ Wizard = CharacterClass(inStatAlloOrder = random.choice(WizardAlloList),
 
 commonClasses = [Barbarian, Bard, Cleric, Druid, Fighter, Monk, Paladin, Ranger,
 	Rogue, Sorcerer, Wizard]
+commonClassesNames = ["Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk",
+	"Paladin", "Ranger", "Rogue", "Sorcerer", "Wizard"]
 #advancedClasses = [Alchemist, Antipaladin, Cavalier, Inquisitor, Oracle, Summoner, Witch]

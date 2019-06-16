@@ -1,3 +1,5 @@
+import csv
+
 class Race:
 	name = None
 	ageRange = [0, 0]
@@ -33,18 +35,18 @@ class Race:
 	def setRaceDetails(self):
 		with open('races.csv', mode = 'r') as races:
 			racesFile = csv.DictReader(races)
-		for record in racesFile:
-			if (name.lower() == record["name"].lower()):
-				self.ageRange[0] = record["ageRangeL"]
-				self.ageRange[1] = record["ageRangeU"]
-				self.heightRange[0] = record["heightRangeL"]
-				self.heightRange[1] = record["heightRangeU"]
-				self.weightRange[0] = record["weightRangeL"]
-				self.weightRange[1] = record["weightRangeU"]
-				self.speed = record["speed"]
-				self.size = record["size"]
-				self.desc["desc"]
-				break
+			for record in racesFile:
+				if (name.lower() == record["name"].lower()):
+					self.ageRange[0] = record["ageRangeL"]
+					self.ageRange[1] = record["ageRangeU"]
+					self.heightRange[0] = record["heightRangeL"]
+					self.heightRange[1] = record["heightRangeU"]
+					self.weightRange[0] = record["weightRangeL"]
+					self.weightRange[1] = record["weightRangeU"]
+					self.speed = record["speed"]
+					self.size = record["size"]
+					self.desc["desc"]
+					break
 		return
 
 def getRacesLists():
@@ -53,16 +55,17 @@ def getRacesLists():
 	goblinoidRaces = []
 	with open('races.csv', mode = 'r') as races:
 		racesFile = csv.DictReader(races)
-	for record in racesFile:
-		if (record["classification"] == common):
-			commonRaces.append(record["name"])
-		elif (record["classification"] == rare):
-			rareRaces.append(record["name"])
-		elif (record["classification"] == goblinoid):
-			goblinoidRaces.append(record["name"])
+		for record in racesFile:
+			if (record["classification"] == "common"):
+				commonRaces.append(record["name"])
+			elif (record["classification"] == "rare"):
+				rareRaces.append(record["name"])
+			elif (record["classification"] == "goblinoid"):
+				goblinoidRaces.append(record["name"])
+	return (commonRaces, rareRaces, goblinoidRaces)
 
 def randomRace():
-	getRacesLists()
+	(commonRaces,rareRaces,goblinoidRaces) = getRacesLists()
 	roll = Dice.dx(100)
 	if(roll <= 90):
 		return random.choice(commonRaces)
