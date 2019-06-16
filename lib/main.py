@@ -1,9 +1,12 @@
 from appJar import gui
 import Item
+import Character
 
 def launch(id):
 	if (id == "itemsButton"):
 		app.showSubWindow("Items")
+	elif (id == "characterButton"):
+		app.showSubWindow("Character")
 	else:
 		pass
 
@@ -36,8 +39,15 @@ def updateItemListBox():
 app = gui("dunGen")
 
 # Define main window
-mainMenuNames = ["itemsButton"]
+mainMenuNames = ["itemsButton", "characterButton"]
 app.addToolbar(mainMenuNames, launch, findIcon=True)
+
+#########################
+# Define character window
+#########################
+app.startSubWindow("Character", modal=True)
+app.setSize(800,400)
+
 
 #########################
 # Define items window

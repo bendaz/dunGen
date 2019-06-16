@@ -32,7 +32,7 @@ class Race:
 
 	def setRaceDetails(self):
 		with open('races.csv', mode = 'r') as races:
-		racesFile = csv.DictReader(races)
+			racesFile = csv.DictReader(races)
 		for record in racesFile:
 			if (name.lower() == record["name"].lower()):
 				self.ageRange[0] = record["ageRangeL"]
@@ -52,7 +52,7 @@ def getRacesLists():
 	rareRaces = []
 	goblinoidRaces = []
 	with open('races.csv', mode = 'r') as races:
-	racesFile = csv.DictReader(races)
+		racesFile = csv.DictReader(races)
 	for record in racesFile:
 		if (record["classification"] == common):
 			commonRaces.append(record["name"])
