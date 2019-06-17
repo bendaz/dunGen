@@ -56,57 +56,64 @@ app.startSubWindow("Character", modal=True)
 (commonRaces,rareRaces,goblinoidRaces) = Race.getRacesLists()
 allRaceList = (commonRaces + rareRaces + goblinoidRaces)
 allRaceList.sort()
+allRaceList.insert(0, "-Race-")
 
 allClassList = CharacterClass.commonClassesNames
+allClassList.insert(0, "-Class-")
 
-alignmentList = ["LG", "LN", "LE", "NG", "N", "NE", "CG", "CN", "CE"]
+alignmentList = ["-Align-", "LG", "LN", "LE", "NG", "N", "NE", "CG", "CN", "CE"]
+
+Common.sizeList.insert(0, "-Size-")
 
 # Display character creation fields
 # Row, Col, Colspan, Rowspan
-app.setPadding([15,5])
+app.setPadding([10,5])
 
 app.setSticky("ew")	
-app.addEntry("nameField", 1, 1, 1, 2)
+app.addEntry("nameField", 1, 1, 4)
 app.setEntryDefault("nameField", "Name")
 
-app.addEntry("ageField", 1, 3, 2)
+app.addEntry("ageField", 1, 7, 2)
 app.setEntryDefault("ageField", "Age")
 
-app.addOptionBox("genderField", ["M","F"], 2, 3, 1)
+app.addOptionBox("genderField", ["-Sex-","M","F"], 1, 5, 2)
 
-app.addOptionBox("alignmentField", alignmentList, 2, 4, 1)
-
-app.addLabel("sizeLabel", "Size", 3, 1, 2)
-app.addOptionBox("sizeField", (Common.sizeList), 4, 1, 2)
-
-app.addLabel("raceLabel", "Race", 3, 3, 2)
-app.addOptionBox("raceField", (allRaceList), 4, 3, 2)
+app.addOptionBox("alignmentField", alignmentList, 2, 7, 2)
 
 app.setSticky("w")
-app.addLabel("levelLabel", "Level", 5, 1, 2)
-app.addSpinBoxRange("levelField", 1, 20, 6, 1, 2)
+app.addOptionBox("sizeField", (Common.sizeList), 2, 3, 2)
+
+app.setSticky("ew")
+app.addOptionBox("raceField", (allRaceList), 2, 1, 2)
+
+app.setSticky("e")
+app.addLabel("levelLabel", "Lvl:", 3, 1, 1)
+app.setLabelAlign("levelLabel", "right")
+app.setSticky("w")
+app.addSpinBoxRange("levelField", 1, 20, 3, 2, 1)
 app.setSpinBoxWidth("levelField", 5)
 
 app.setSticky("ew")
-app.addLabel("classLabel", "Class", 5, 3, 2)
-app.addOptionBox("classField", allClassList, 6, 3, 2)
-
-app.setSticky("w")
-app.addLabel("heightLabel", "Height", 7, 1, 2)
-app.addSpinBoxRange("heightFtField", 0, 100, 8, 1, 1)
-app.setSpinBoxWidth("heightFtField", 5)
-app.addSpinBoxRange("heightInField", 0, 11, 8, 2, 1)
-app.setSpinBoxWidth("heightInField", 5)
+app.addOptionBox("classField", allClassList, 3, 3, 2)
 
 app.setSticky("ew")
-app.addEntry("hairField", 7, 3, 2)
+app.addLabel("heightLabel", "Height (ft/in)", 7, 1, 2)
+app.setSticky("w")
+app.setLabelAlign("heightLabel", "center")
+app.addSpinBoxRange("heightFtField", 0, 100, 8, 1, 1)
+app.setSpinBoxWidth("heightFtField", 3)
+app.addSpinBoxRange("heightInField", 0, 11, 8, 2, 1)
+app.setSpinBoxWidth("heightInField", 3)
+
+app.setSticky("ew")
+app.addEntry("hairField", 3, 5, 2)
 app.setEntryDefault("hairField", "Hair")
 
-app.addEntry("eyesField", 8, 3, 2)
+app.addEntry("eyesField", 3, 7, 2)
 app.setEntryDefault("eyesField", "Eyes")
 
-app.addEntry("speedField", 9, 1, 2)
-app.setEntry("speedField", "Speed")
+app.addEntry("speedField", 2, 5, 2)
+app.setEntryDefault("speedField", "Speed")
 
 app.stopSubWindow()
 
